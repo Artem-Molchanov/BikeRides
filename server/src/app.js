@@ -4,13 +4,13 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
-// const tasksRouter = require('./routers/tasks.api.router');
+
 const authRouter = require('./routers/auth.router');
 const tokenRouter = require('./routers/token.router');
 
-const channelsRouter = require('./routers/channels.api.router');
-const subscriptionsRouter = require('./routers/subscriptions.api.router');
-const userRouter = require('./routers/user.api.router');
+const routeRouter = require('./routes/route');
+const reviewRouter = require('./routes/review');
+const scoreRouter = require('./routes/score');
 
 const app = express();
 const { PORT } = process.env;
@@ -21,12 +21,11 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(process.cwd(), 'public')));
 
-// app.use('/api/tasks', tasksRouter);
-app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokenRouter);
-app.use('/api/channels', channelsRouter);
-app.use('/api/subscriptions', subscriptionsRouter);
+app.use('/api/routes', routeRouter);
+app.use('/api/reviews', reviewRouter);
+app.use('/api/scores', scoreRouter);
 
 
 
