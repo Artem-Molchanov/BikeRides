@@ -16,7 +16,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			coordinates: {
-				type: Sequelize.STRING,
+				type: Sequelize.JSON,
 			},
 			routeLength: {
 				type: Sequelize.FLOAT,
