@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const router = require('express').Router();
 const { User } = require('../../db/models');
 const { refresh } = require('../configs/cookiesConfig');
@@ -38,6 +39,8 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/signin', async (req, res) => {
+  console.log(1111);
+  
   try {
     const { email, password } = req.body;
 
