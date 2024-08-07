@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.cartContainer {
+	font-family: 'Noto Sans', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.emptyCart {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+}
+
+.cartItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.productInfo {
+  flex: 1;
+}
+
+.productName {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.productQuantity,
+.productPrice {
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.removeButton {
+  background-color: #e74c3c; 
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.removeButton:hover {
+  background-color: #c0392b; 
+}
+
+.totalSum {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.checkoutButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 0px; 
+}
+
+.checkoutButton {
+  background-color: #388d11;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px; 
+}

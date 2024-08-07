@@ -1,0 +1,81 @@
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.header {
+	font-family: "Noto Sans", sans-serif;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 20px;
+	background-color: #f8f9fa;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cartBadge {
+	position: absolute;
+	top: 33px;
+	/* right: -5px; */
+	background-color: red;
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+}
+
+.logo {
+	width: 120px;
+    height: auto;
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-decoration: none;
+	color: #343a40;
+}
+
+.cart {
+	position: relative;
+		width: 40px;
+    height: 30px;
+}
+
+.exit {
+		width: 30px;
+    height:30px;
+}
+
+.nav {
+	display: flex;
+	gap: 15px;
+}
+
+.nav a {
+	text-decoration: none;
+	color: black;
+	font-size: 18px;
+}
+
+.nav a:hover {
+	text-decoration: underline;
+}
+
+.welcome {
+	font-size: 18px;
+	color: #343a40;
+	margin-right: 10px;
+}
+
+
+.adminLink {
+ 	color: #33ff00;
+ 	text-decoration: none;
+ 	font-size: 18px;
+ 	margin-left: 15px;
+}
+
+.adminLink:hover {
+ 	text-decoration: underline;
+}
