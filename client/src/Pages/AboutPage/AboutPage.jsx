@@ -49,7 +49,7 @@ export default function AboutRoute({
           <div>
             <div>
               <div className="city">📍 {currentRoute.locality}</div>
-              <div className="km">🗺 {currentRoute.routeLength} км</div>
+              <div className="km">🗺 {currentRoute.routeLength}</div>
             </div>
             {currentRoute.userId === user.id ? (
               <div className="btnsAccess">

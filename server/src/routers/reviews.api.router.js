@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Review, User, Route } = require('../../db/models');
+const { Review, User, Route, Score } = require('../../db/models');
 const { verifyAccessToken } = require('../middleWares/verifyToken');
 
 
@@ -20,7 +20,12 @@ router.get('/route/:routeId', async (req, res) => {
 router.post('/:id', verifyAccessToken, async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { routeId, description } = req.body;
+		const { routeId, description,point } = req.body;
+		const newScore = await Score.create({
+			routeId: id,
+			userId: res.locals.user.id,
+			point,
+		});
 		
 		
 		const newReview = await Review.create({
