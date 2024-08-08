@@ -3,12 +3,11 @@ import './MapComponent.css';
 
 const script = document.createElement('script');
 
-function Map() {
-  const [wayPoints, setWayPoints] = useState([]);
-  const [distance, setDistance] = useState()
-  const [duration, setDuration] = useState()
+function Map({coord, setCoord, duration, setDuration,distance, setDistance, wayPointsOnMap, setWayPointsOnMap}) {
+
   const [isMap, setIsMap] = useState(false);
   
+
 
   useEffect(() => {
     if (!isMap) {
@@ -64,14 +63,14 @@ function Map() {
               // Коллекция путевых точек маршрута.
               var wayPoints = multiRoute.getWayPoints();
               // Проход по коллекции путевых точек.
-              console.log('wayPoints', wayPoints);
+              
               const points =[]
               wayPoints.each(function (point) {
                 points.push(point.geometry._coordinates)
-                console.log(point.geometry._coordinates);
                 
               });
-              setWayPoints(points)
+              setWayPointsOnMap(points)
+              console.log('points',wayPointsOnMap);
             });
           },
           function (err) {
@@ -103,6 +102,7 @@ function Map() {
 
     // Удаляем скрипт при размонтировании компонента
     return () => {
+      setIsMap(false)
       document.body.removeChild(script);
     };
   }

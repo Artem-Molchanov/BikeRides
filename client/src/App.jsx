@@ -25,6 +25,11 @@ function App() {
   const [allRoutes, setAllRoutes] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [currentRoute, setCurrentRoute] = useState({});
+  const [coord, setCoord] = useState([])
+  const [wayPointsOnMap, setWayPointsOnMap] = useState();
+  const [distance, setDistance] = useState()
+  const [duration, setDuration] = useState()
+
 
   const isRegistered = user && !!user.name;
 
@@ -78,6 +83,14 @@ function App() {
           path="/account"
           element={
             <AccountPage
+            duration={duration}
+            setDuration={setDuration}
+            distance={distance}
+            setDistance={setDistance}
+            wayPointsOnMap={wayPointsOnMap}
+            setWayPointsOnMap={setWayPointsOnMap}
+            coord={coord}
+            setCoord={setCoord}
               user={user}
               allRoutes={allRoutes}
               setAllRoutes={setAllRoutes}

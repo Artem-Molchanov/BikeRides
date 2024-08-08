@@ -5,12 +5,12 @@ import './MapComponent.css';
 const script = document.createElement('script');
 
 function MapForm() {
-  const [coord, setCoord] = useState([])
+  // const [coord, setCoord] = useState([])
   const [isMap, setIsMap] = useState(false);
   // setIsMap(false)
 
   useEffect(() => {
-    // axiosInstance.get('/coord').then((res)=>{
+    // axiosInstance.get('/').then((res)=>{
     //   setCoord(res.data)// получить данные из базы где первый элемент старт и второй финиш
 
     // })
@@ -38,7 +38,7 @@ function MapForm() {
        
         [55.724102, 37.19912]
             // вносятся координаты
-              // `${coord}`,
+              // `${coord}`
               
              
           ]
