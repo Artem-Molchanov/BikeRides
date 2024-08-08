@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import Card from "../../components/Card/Card";
+import Map from "../../components/MapComponent/Map";
 
 export default function AccountPage({
   user,
@@ -83,7 +84,9 @@ export default function AccountPage({
             ДОБАВИТЬ МАРШРУТ
           </button>
         </div>
-        <div className="map"></div>
+        <div className="map">
+          <Map />
+        </div>
       </div>
 
       <div>

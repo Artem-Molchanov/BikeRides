@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Map from "../../components/MapComponent/Map";
 
 export default function AboutRoute({
   allRoutes,
@@ -20,7 +21,7 @@ export default function AboutRoute({
           </div>
           <button>ЧИТАТЬ ОТЗЫВЫ</button>
         </div>
-        <div className="mapForCard"></div>
+        <div className="mapForCard"><Map /></div>
       </div>
     </div>
   );
