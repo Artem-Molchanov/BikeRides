@@ -8,9 +8,9 @@ const path = require('path');
 const authRouter = require('./routers/auth.router');
 const tokenRouter = require('./routers/token.router');
 
-const routeRouter = require('./routes/route');
-const reviewRouter = require('./routes/review');
-const scoreRouter = require('./routes/score');
+const routeRouter = require('./routers/routes.api.router')
+const reviewRouter = require('./routers/reviews.api.router');
+const scoreRouter = require('./routers/reviews.api.router');
 
 const app = express();
 const { PORT } = process.env;
