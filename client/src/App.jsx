@@ -6,6 +6,7 @@ import axiosInstance, { setAccessToken } from './axiosInstance';
 import Account from './components/Account/Account';
 import ItinerariesList from './components/ItinerariesList/ItinerariesList';
 import ItineraryPage from './components/ItineraryPage/ItineraryPage';
+import Map from './components/MapComponent/Map';
 
 function App() {
 	const [user, setUser] = useState({});
@@ -58,12 +59,7 @@ function App() {
 						<ItinerariesList parties={parties} setParties={setParties} />
 					}
 				/>
-				<Route
-					path='/all'
-					element={
-						<ItinerariesList parties={parties} setParties={setParties} />
-					}
-				/>
+				
 				<Route
 					path='/all/:id'
 					element={
