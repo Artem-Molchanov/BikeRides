@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 			name: DataTypes.STRING,
 			info: DataTypes.STRING,
 			coordinates: DataTypes.JSON,
-			routeLength: DataTypes.FLOAT,
+			routeLength: DataTypes.STRING,
 			locality: DataTypes.STRING,
 			userId: DataTypes.INTEGER,
 		},

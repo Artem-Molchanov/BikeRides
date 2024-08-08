@@ -43,6 +43,7 @@ export default function AccountPage({
       setAllRoutes(response.data);
     }
   };
+  console.log(routeUser);
 
   const routeUser = allRoutes.filter((el) => el.userId === user.id);
 

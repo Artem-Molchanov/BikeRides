@@ -47,7 +47,8 @@ export default function AboutRoute({
             <button onClick={navReviews} className="btnReviews">ЧИТАТЬ ОТЗЫВЫ</button>
           </div>
           <div className="mapForCard">
-            <MapForm />
+            <MapForm 
+            currentRoute={currentRoute}/>
           </div>
         </div>
       </div>

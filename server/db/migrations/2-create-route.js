@@ -19,7 +19,7 @@ module.exports = {
 				type: Sequelize.JSON,
 			},
 			routeLength: {
-				type: Sequelize.FLOAT,
+				type: Sequelize.STRING,
 			},
 			locality: {
 				type: Sequelize.STRING,
