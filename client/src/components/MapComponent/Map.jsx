@@ -2,19 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './MapComponent.css';
 
 
-
-function Map() {
-  const [wayPoints, setWayPoints] = useState([]);
-  const [distance, setDistance] = useState()
-  const [duration, setDuration] = useState()
+function Map({coord, setCoord, duration, setDuration,distance, setDistance, wayPointsOnMap, setWayPointsOnMap}) {
+  
   const [isMap, setIsMap] = useState(false);
   
-  console.log(isMap);
-  
 
+  
   useEffect(() => {
     if (!isMap) {
-      const script = document.createElement('script');
+    const script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.src =
       'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
@@ -69,14 +65,14 @@ function Map() {
               // Коллекция путевых точек маршрута.
               var wayPoints = multiRoute.getWayPoints();
               // Проход по коллекции путевых точек.
-              console.log('wayPoints', wayPoints);
+              
               const points =[]
               wayPoints.each(function (point) {
                 points.push(point.geometry._coordinates)
-                console.log(point.geometry._coordinates);
                 
               });
-              setWayPoints(points)
+              setWayPointsOnMap(points)
+              console.log('points',wayPointsOnMap);
             });
           },
           function (err) {
@@ -97,17 +93,15 @@ function Map() {
             });
           });
         });
-        // console.log('routePanel', control.routePanel);
-        
-        // console.log(myMap);
+      
       }
 
-      // myMap.addChild(mapListeners);
     };
     
 
     // Удаляем скрипт при размонтировании компонента
     return () => {
+      setIsMap(false)
       document.body.removeChild(script);
       setIsMap(false)
     };

@@ -10,13 +10,14 @@ export default function AccountPage({
   setAllRoutes,
   allUsers,
   setCurrentRoute,
-  setTitle
+  setTitle,
+  coord,
+  setCoord,
+  duration, setDuration,distance, setDistance, wayPointsOnMap, setWayPointsOnMap
 }) {
   const initialState = {
     name: "",
     info: "",
-    coordinates: [55.7575079768237, 37.61915426232428],
-    routeLength: "",
     locality: "",
   };
   const [inputs, setInputs] = useState(initialState);
@@ -28,11 +29,14 @@ export default function AccountPage({
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(inputs);
-
+    const payload = {
+      ...inputs, coordinates: wayPointsOnMap, routeLength: distance
+    };
+    
+    console.log( "distance", payload)
     const response = await axiosInstance.post(
       `${import.meta.env.VITE_API}/track`,
-      inputs
+      payload
     );
     if (response.status === 200) {
       setInputs(initialState);
@@ -73,10 +77,10 @@ export default function AccountPage({
               />
               <input
                 className="input"
-                onChange={inputsHandler}
+                onChange={distance}
                 name="routeLength"
                 placeholder="🗺 Длина маршрута"
-                value={inputs.routeLength}
+                value={distance}
               />
             </form>
           </div>
@@ -85,7 +89,17 @@ export default function AccountPage({
           </button>
         </div>
         <div className="map">
-          <Map />
+          <Map  
+          duration={duration}
+          setDuration={setDuration}
+          distance={distance}
+          setDistance={setDistance}
+          
+          wayPointsOnMap={wayPointsOnMap}
+          setWayPointsOnMap={setWayPointsOnMap}
+          coord={coord}
+          setCoord={setCoord}
+            />
         </div>
       </div>
 

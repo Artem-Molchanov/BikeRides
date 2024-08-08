@@ -5,7 +5,7 @@ import './MapComponent.css';
 const script = document.createElement('script');
 
 function MapForm() {
-  const [coord, setCoord] = useState([])
+  // const [coord, setCoord] = useState([])
   const [isMap, setIsMap] = useState(false);
   // setIsMap(false)
 
@@ -51,7 +51,7 @@ function MapForm() {
        
         // [55.724102, 37.19912]
             // вносятся координаты
-              // `${coord}`,
+              // `${coord}`
               
              
           
