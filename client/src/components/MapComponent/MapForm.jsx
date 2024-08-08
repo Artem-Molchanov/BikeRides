@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
+import './MapComponent.css';
+
 
 const script = document.createElement('script');
 
 function MapForm() {
   const [coord, setCoord] = useState([])
-  // const [isMap, setIsMap] = useState(false);
+  const [isMap, setIsMap] = useState(false);
   // setIsMap(false)
 
   useEffect(() => {
-    axiosInstance.get('/coord').then((res)=>{
-      setCoord(res.data)// получить данные из базы где первый элемент старт и второй финиш
+    // axiosInstance.get('/coord').then((res)=>{
+    //   setCoord(res.data)// получить данные из базы где первый элемент старт и второй финиш
 
-    })
+    // })
     
-    // if (!isMap) {
+    if (!isMap) {
     script.setAttribute('type', 'text/javascript');
     script.src =
       'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
@@ -24,16 +26,20 @@ function MapForm() {
     script.onload = () => {
       ymaps.ready(init);
       function init() {
-        const myMap = new ymaps.Map('map', {
-          center: [55.7575079768237, 37.61915426232428],//! изменить точку входа на карту
-          zoom: 7,
+        const myMap = new ymaps.Map('mapForm', {
+          center: [55.7575079768237, 37.61915426232428],//! изменить точку входа на карту первая переменная маршрута
+          zoom: 15,
           controls: [],
         });
 
         var multiRoute = new ymaps.multiRouter.MultiRoute({
           referencePoints: [
-              ${coord[0]},
-              ${coord[1]}
+            [55.734470, 37.58000],
+       
+        [55.724102, 37.19912]
+            // вносятся координаты
+              // `${coord}`,
+              
              
           ]
       }, {
@@ -47,15 +53,15 @@ function MapForm() {
           
       });
       myMap.geoObjects.add(multiRoute)
+      setIsMap(true);
       }
     };
-    //   setIsMap(true);
-    // }
-
+    
     // Удаляем скрипт при размонтировании компонента
     return () => {
       document.body.removeChild(script);
     };
+  }
   }, []);
 
   console.log('asdf');
@@ -64,11 +70,11 @@ function MapForm() {
 
   return (
     <div
-      id='map'
+      id='mapForm'
       className='map'
-      style={{ width: '100%', height: '400px' }}
-    />
+      >
+    </div>
   );
 }
 
-export default Map;
+export default MapForm;

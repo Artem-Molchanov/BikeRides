@@ -7,10 +7,11 @@ function Map() {
   const [wayPoints, setWayPoints] = useState([]);
   const [distance, setDistance] = useState()
   const [duration, setDuration] = useState()
-  // setIsMap(false)
+  const [isMap, setIsMap] = useState(false);
+  
 
   useEffect(() => {
-    // if (!isMap) {
+    if (!isMap) {
     script.setAttribute('type', 'text/javascript');
     script.src =
       'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
@@ -23,7 +24,7 @@ function Map() {
       function init() {
         const myMap = new ymaps.Map('map', {
           center: [55.7575079768237, 37.61915426232428], //! изменить точку входа на карту
-          zoom: 15,
+          zoom: 12,
           // controls: [],
           controls: ['routePanelControl'],
         });
@@ -36,6 +37,8 @@ function Map() {
             bicycle: true,
           },
         });
+
+        setIsMap(true);
 
         var multiRoutePromise = control.routePanel.getRouteAsync();
         multiRoutePromise.then(
@@ -90,18 +93,19 @@ function Map() {
           });
         });
         // console.log('routePanel', control.routePanel);
-        console.log(myMap);
+        
+        // console.log(myMap);
       }
 
       // myMap.addChild(mapListeners);
     };
-    //   setIsMap(true);
-    // }
+    
 
     // Удаляем скрипт при размонтировании компонента
     return () => {
       document.body.removeChild(script);
     };
+  }
   }, []);
 
   console.log('asdf');
@@ -109,8 +113,8 @@ function Map() {
   return (
     <div
       id='map'
-      className='map'
-      style={{ height: '400px' }}
+      className='map1'
+      // style={{ height: '400px' }}
     ></div>
   );
 }
