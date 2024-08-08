@@ -18,6 +18,7 @@ import RoutesPage from "./Pages/Routes/Routes";
 import AccountPage from "./Pages/AccountPage/AccountPage";
 import EditRoute from "./Pages/EditPge/EditPage";
 import AboutRoute from "./Pages/AboutPage/AboutPage";
+import Reviews from "./Pages//ReviewsPage/ReviewsPage";
 
 function App() {
   const [user, setUser] = useState({});
@@ -107,9 +108,11 @@ function App() {
               allUsers={allUsers}
               currentRoute={currentRoute}
               user={user}
+			  setTitle={setTitle}
             />
           }
         />
+        <Route path="/reviews" element={<Reviews />} />
       </Routes>
     </Router>
   );

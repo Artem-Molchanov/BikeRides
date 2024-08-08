@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MapComponent.css';
 
-const script = document.createElement('script');
+
 
 function Map() {
   const [wayPoints, setWayPoints] = useState([]);
@@ -9,20 +9,25 @@ function Map() {
   const [duration, setDuration] = useState()
   const [isMap, setIsMap] = useState(false);
   
+  console.log(isMap);
+  
 
   useEffect(() => {
     if (!isMap) {
+      const script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.src =
       'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
     script.async = true;
 
     document.body.appendChild(script);
-
     script.onload = () => {
+      
       ymaps.ready(init);
       function init() {
+        
         const myMap = new ymaps.Map('map', {
+          
           center: [55.7575079768237, 37.61915426232428], //! изменить точку входа на карту
           zoom: 12,
           // controls: [],
@@ -104,6 +109,7 @@ function Map() {
     // Удаляем скрипт при размонтировании компонента
     return () => {
       document.body.removeChild(script);
+      setIsMap(false)
     };
   }
   }, []);
