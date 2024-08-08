@@ -2,6 +2,7 @@ import { useState } from "react";
 import Map from "../../components/MapComponent/Map";
 import { useNavigate } from "react-router-dom";
 import MapForm from "../../components/MapComponent/MapForm";
+import axiosInstance from "../../axiosInstance";
 
 export default function AboutRoute({
   allRoutes,
@@ -9,6 +10,7 @@ export default function AboutRoute({
   currentRoute,
   user,
   setTitle,
+  setChange
 }) {
 
   const navigate = useNavigate();
@@ -21,7 +23,20 @@ export default function AboutRoute({
     navigate('/reviews')
     setTitle(`Маршрут “${currentRoute.name}” - ОТЗЫВЫ`)
   }
-  console.log();
+
+  const submitHandler = async () => {
+    console.log(currentRoute);
+    
+    const response = await axiosInstance.delete(
+      `${import.meta.env.VITE_API}/routes/${currentRoute.id}`
+    );
+    if (response.status === 200) {
+      setChange(true);
+      navigate("/account");
+    }
+  };
+  
+  
 
   return (
     <div className="aboutPage">
@@ -39,7 +54,7 @@ export default function AboutRoute({
             {currentRoute.userId === user.id ? (
               <div className="btnsAccess">
                 <button onClick={navEdits} className="btnEdite">РЕДАКТИРОВАТЬ</button>
-                <button className="btnDelete">УДАЛИТЬ</button>
+                <button onClick={submitHandler} className="btnDelete">УДАЛИТЬ</button>
               </div>
             ) : (
               <div className="none"></div>

@@ -51,9 +51,11 @@ router.put('/:id', verifyAccessToken, async (req, res) => {
 
 
 router.delete('/:id', verifyAccessToken, async (req, res) => {
+	
 	try {
 		const { id } = req.params;
 		const route = await Route.findByPk(id);
+console.log(id);
 
 		if (route.userId !== res.locals.user.id) {
 			return res.status(403).json({ error: 'Forbidden' });

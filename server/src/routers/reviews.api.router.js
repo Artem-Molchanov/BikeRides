@@ -17,13 +17,16 @@ router.get('/route/:routeId', async (req, res) => {
 });
 
 
-router.post('/', verifyAccessToken, async (req, res) => {
+router.post('/:id', verifyAccessToken, async (req, res) => {
 	try {
-		const { routeId, text } = req.body;
+		const { id } = req.params;
+		const { routeId, description } = req.body;
+		
+		
 		const newReview = await Review.create({
-			routeId,
+			routeId: id,
 			userId: res.locals.user.id, 
-			text,
+			description,
 		});
 		res.status(201).json(newReview);
 	} catch (error) {

@@ -1,43 +1,60 @@
 import { useState } from "react";
 import Map from "../../components/MapComponent/Map";
+import axiosInstance from "../../axiosInstance";
+import { useNavigate } from "react-router-dom";
 
-export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
+export default function EditRoute({
+  allRoutes,
+  allUsers,
+  currentRoute,
+  user,
+  wayPointsOnMap,
+  distance,
+  setChange,
+  duration,
+  setDuration,
+  setDistance,
+  setWayPointsOnMap,
+}) {
+  const navigate = useNavigate();
   const initialState = {
     name: currentRoute.name,
     info: currentRoute.info,
-    coordinates: [55.7575079768237, 37.61915426232428],
-    routeLength: currentRoute.routeLength,
     locality: currentRoute.locality,
   };
+  // console.log(distance);
+
   const [inputs, setInputs] = useState(initialState);
-  // const navigate = useNavigate();
 
   const inputsHandler = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  //   const submitHandler = async (e) => {
-  //     e.preventDefault();
-  // console.log(inputs);
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const payload = {
+      ...inputs,
+      coordinates: wayPointsOnMap,
+      routeLength: distance,
+    };
 
-  //     const response = await axiosInstance.post(
-  //       `${import.meta.env.VITE_API}/track`,
-  //       inputs
-  //     );
-  //     if (response.status === 200) {
-  //       setInputs(initialState);
-  //       setAllRoutes(response.data);
-  //     }
-  //   };
-
-  // const routeUser = allRoutes.filter((el) => el.userId === user.id);
+    // console.log( "distance", payload)
+    const response = await axiosInstance.put(
+      `${import.meta.env.VITE_API}/routes/${currentRoute.id}`
+    );
+    if (response.status === 200) {
+      setChange(true);
+      
+      navigate("/about");
+    }
+  };
 
   return (
     <div>
       <div className="dataRout">
         <div>
           <div className="nameInAccount">{user.name}</div>
-          <div className="addNewRout">ДОБАВЛЕНИЕ НОВОГО МАРШРУТА</div>
+          <div className="addNewRout">РЕДЕКТИРОВАНИЕ МАРШРУТА</div>
           <div className="boxFormAdd">
             <form className="form">
               <input
@@ -66,13 +83,24 @@ export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
                 onChange={inputsHandler}
                 name="routeLength"
                 placeholder="🗺 Длина маршрута"
-                value={inputs.routeLength}
+                value={distance}
               />
             </form>
           </div>
-          <button className="btnEdite">РЕДАКТИРОВАТЬ</button>
+          <button onClick={submitHandler} className="btnEdite">
+            РЕДАКТИРОВАТЬ
+          </button>
         </div>
-        <div className="map"><Map /></div>
+        <div className="map">
+          <Map
+            duration={duration}
+            setDuration={setDuration}
+            distance={distance}
+            setDistance={setDistance}
+            wayPointsOnMap={wayPointsOnMap}
+            setWayPointsOnMap={setWayPointsOnMap}
+          />
+        </div>
       </div>
     </div>
   );

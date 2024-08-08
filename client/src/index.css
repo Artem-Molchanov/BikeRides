@@ -238,3 +238,24 @@ body {
   .none {
     height: 120px;
   }
+
+  .boxAddReview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .textReview {
+    width: 900px;
+    height: 100px;
+    margin: 60px 0 0 150px;
+  }
+
+  .btnReview {
+    margin: 20px 0 0 150px;
+    width: 200px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #957CFC;
+    font-size: 16px;
+    font-weight: 600px;
+  }
