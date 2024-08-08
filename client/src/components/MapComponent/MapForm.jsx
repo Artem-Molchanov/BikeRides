@@ -57,7 +57,7 @@ function MapForm({currentRoute, setAllRoutes, allRoutes}) {
               // Внешний вид линии активного маршрута.
               routeActiveStrokeWidth: 8,
               routeActiveStrokeStyle: 'solid',
-              routeActiveStrokeColor: "#002233",
+              routeActiveStrokeColor: "#957CFC",
               
           });
           myMap.geoObjects.add(multiRoute)
