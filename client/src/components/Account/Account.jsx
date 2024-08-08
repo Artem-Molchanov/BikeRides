@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosInstance';
 
-function Account({ user, fetchParties }) {
+function Account({ user, fetchParties, route, setRoute, }) {
 	const [parties, setParties] = useState([]);
 	const [newParty, setNewParty] = useState({
 		name: '',

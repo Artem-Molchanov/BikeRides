@@ -1,79 +1,118 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Auth from './components/Auth/Auth';
-import axiosInstance, { setAccessToken } from './axiosInstance';
-import Account from './components/Account/Account';
-import ItinerariesList from './components/ItinerariesList/ItinerariesList';
-import ItineraryPage from './components/ItineraryPage/ItineraryPage';
-import Map from './components/MapComponent/Map';
+// import { useState, useEffect } from 'react';
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import Header from './components/Header/Header';
+// import Auth from './components/Auth/Auth';
+// import axiosInstance, { setAccessToken } from './axiosInstance';
+// import Account from './components/Account/Account';
+// import ItinerariesList from './components/ItinerariesList/ItinerariesList';
+// import ItineraryPage from './components/ItineraryPage/ItineraryPage';
+// import Map from './components/MapComponent/Map';
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Auth from "./components/Auth/Auth";
+import axiosInstance, { setAccessToken } from "./axiosInstance";
+import Account from "./components/Account/Account";
+import HomePage from "./Pages/HomePage/HomePage";
+import RoutesPage from "./Pages/Routes/Routes";
+import AccountPage from "./Pages/AccountPage/AccountPage";
+import EditRoute from "./Pages/EditPge/EditPage";
+import AboutRoute from "./Pages/AboutPage/AboutPage";
 
 function App() {
-	const [user, setUser] = useState({});
-	const [parties, setParties] = useState([]);
-	const isRegistered = user && !!user.name;
+  const [user, setUser] = useState({});
+  const [title, setTitle] = useState("Велопрогулки 🚴🏼");
+  const [allRoutes, setAllRoutes] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const [currentRoute, setCurrentRoute] = useState({});
 
-	useEffect(() => {
-		const fetchToken = async () => {
-			try {
-				const res = await axiosInstance.get(
-					`${import.meta.env.VITE_API}/tokens/refresh`
-				);
-				setUser(res.data.user);
-				setAccessToken(res.data.accessToken);
-			} catch (err) {
-				console.error('Ошибка при обновлении токена:', err);
-			}
-		};
+  const isRegistered = user && !!user.name;
 
-		fetchToken();
-	}, []);
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const res = await axiosInstance.get(
+          `${import.meta.env.VITE_API}/tokens/refresh`
+        );
+        setUser(res.data.user);
+        setAccessToken(res.data.accessToken);
+      } catch (err) {
+        console.error("Ошибка при обновлении токена:", err);
+      }
+    };
 
+    fetchToken();
+  }, []);
 
-	const fetchParties = async () => {
-		try {
-			const { data } = await axiosInstance.get(
-				`${import.meta.env.VITE_API}/all`
-			);
-			setParties(data.parties || []);
-		} catch (err) {
-			console.error('Ошибка ', err);
-		}
-	};
+  useEffect(() => {
+    axiosInstance
+      .get(`${import.meta.env.VITE_API}/track`)
+      .then((data) => setAllRoutes(data.data))
+      .catch((err) => console.log("Ошибка :", err));
+  }, []);
 
+  useEffect(() => {
+    axiosInstance
+      .get(`${import.meta.env.VITE_API}/track/allUsers`)
+      .then((data) => setAllUsers(data.data))
+      .catch((err) => console.log("Ошибка :", err));
+  }, []);
 
-	useEffect(() => {
-		axiosInstance
-			.get(`${import.meta.env.VITE_API}/all`)
-			.then(data => setParties(data.data.parties || []))
-			.catch(err => console.log('Ошибка :', err));
-	}, []);
-
-	return (
-		<Router>
-			<Header user={user} setUser={setUser} />
-			<Routes>
-				<Route
-					path='/'
-					element={
-						<ItinerariesList parties={parties} setParties={setParties} />
-					}
-				/>
-				
-				<Route
-					path='/all/:id'
-					element={
-						<ItineraryPage parties={parties} isRegistered={isRegistered} />
-					}
-				/>
-				<Route
-					path='/parties'
-					element={<Account user={user} fetchParties={fetchParties} />}
-				/>
-				<Route path='/auth' element={<Auth setUser={setUser} />} />
-			</Routes>
-		</Router>
-	);
+  return (
+    <Router>
+      <Header user={user} setUser={setUser} title={title} setTitle={setTitle} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/routes"
+          element={
+            <RoutesPage
+              allRoutes={allRoutes}
+              allUsers={allUsers}
+              setCurrentRoute={setCurrentRoute}
+              setTitle={setTitle}
+            />
+          }
+        />
+        <Route
+          path="/account"
+          element={
+            <AccountPage
+              user={user}
+              allRoutes={allRoutes}
+              setAllRoutes={setAllRoutes}
+              allUsers={allUsers}
+              setCurrentRoute={setCurrentRoute}
+              setTitle={setTitle}
+            />
+          }
+        />
+        <Route path="/auth" element={<Auth setUser={setUser} />} />
+        <Route
+          path="/edit"
+          element={
+            <EditRoute
+              allRoutes={allRoutes}
+              allUsers={allUsers}
+              currentRoute={currentRoute}
+              user={user}
+            />
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <AboutRoute
+              allRoutes={allRoutes}
+              allUsers={allUsers}
+              currentRoute={currentRoute}
+              user={user}
+            />
+          }
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
