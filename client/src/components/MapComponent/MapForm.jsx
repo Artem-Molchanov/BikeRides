@@ -9,11 +9,24 @@ function MapForm() {
   const [isMap, setIsMap] = useState(false);
   // setIsMap(false)
 
-  useEffect(() => {
-    // axiosInstance.get('/coord').then((res)=>{
-    //   setCoord(res.data)// получить данные из базы где первый элемент старт и второй финиш
 
-    // })
+  ///--------------------------------------
+  useEffect(() => {
+    axiosInstance
+      .get(`${import.meta.env.VITE_API}/routes/${routeId}/coordinates`)
+      .then((response) => setCoord(response.data))
+      .catch((err) => console.log("Ошибка:", err));
+  }, [routeId]);
+  
+   ///--------------------------------------
+
+
+      useEffect(() => {
+				axiosInstance
+					.get(`${import.meta.env.VITE_API}/route`)
+					.then(data => setAllRoutes(data.data))
+					.catch(err => console.log('Ошибка :', err));
+			}, []);
     
     if (!isMap) {
     script.setAttribute('type', 'text/javascript');
@@ -33,15 +46,15 @@ function MapForm() {
         });
 
         var multiRoute = new ymaps.multiRouter.MultiRoute({
-          referencePoints: [
-            [55.734470, 37.58000],
+          referencePoints: coord,
+        //     [55.734470, 37.58000],
        
-        [55.724102, 37.19912]
+        // [55.724102, 37.19912]
             // вносятся координаты
               // `${coord}`,
               
              
-          ]
+          
       }, {
           // Внешний вид путевых точек.
           wayPointStartIconColor: "#FFFFFF",

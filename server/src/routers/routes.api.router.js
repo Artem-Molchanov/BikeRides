@@ -66,4 +66,23 @@ router.delete('/:id', verifyAccessToken, async (req, res) => {
 	}
 });
 
+
+
+router.get('/:id/coordinates', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const route = await Route.findByPk(id, {
+			attributes: ['coordinates'],
+		});
+
+		if (!route) {
+			return res.status(404).json({ error: 'Маршрут не найден' });
+		}
+
+		res.json(route.coordinates);
+	} catch (error) {
+		res.status(500).json({ error: 'Server Error' });
+	}
+});
+
 module.exports = router;
