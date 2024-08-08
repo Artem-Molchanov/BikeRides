@@ -80,7 +80,7 @@ function App() {
         />
         <Route path="/auth" element={<Auth setUser={setUser} />} />
         <Route
-          path="/editRoute"
+          path="/edit"
           element={
             <EditRoute
               allRoutes={allRoutes}
@@ -91,7 +91,7 @@ function App() {
           }
         />
         <Route
-          path="/aboutRoute"
+          path="/about"
           element={
             <AboutRoute
               allRoutes={allRoutes}

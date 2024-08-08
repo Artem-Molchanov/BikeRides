@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Card({ route, allUsers, setCurrentRoute, setTitle }) {
     const navigate = useNavigate();
     async function showCardRoute() {
-      navigate("/aboutRoute");
+      navigate("/about");
       setCurrentRoute(route)
       setTitle(`Маршрут “${route.name}”`);
     }
