@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Map from "../../components/MapComponent/Map";
 import { useNavigate } from "react-router-dom";
+import MapForm from "../../components/MapComponent/MapForm";
 
 export default function AboutRoute({
   allRoutes,
@@ -20,6 +21,7 @@ export default function AboutRoute({
     navigate('/reviews')
     setTitle(`Маршрут “${currentRoute.name}” - ОТЗЫВЫ`)
   }
+  console.log();
 
   return (
     <div className="aboutPage">
@@ -45,7 +47,7 @@ export default function AboutRoute({
             <button onClick={navReviews} className="btnReviews">ЧИТАТЬ ОТЗЫВЫ</button>
           </div>
           <div className="mapForCard">
-            <Map />
+            <MapForm />
           </div>
         </div>
       </div>

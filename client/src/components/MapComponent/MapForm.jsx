@@ -7,10 +7,8 @@ const script = document.createElement('script');
 function MapForm() {
   // const [coord, setCoord] = useState([])
   const [isMap, setIsMap] = useState(false);
-  // setIsMap(false)
+ 
 
-
-  ///--------------------------------------
   useEffect(() => {
     axiosInstance
       .get(`${import.meta.env.VITE_API}/routes/${routeId}/coordinates`)
@@ -18,7 +16,7 @@ function MapForm() {
       .catch((err) => console.log("Ошибка:", err));
   }, [routeId]);
   
-   ///--------------------------------------
+  
 
 
       useEffect(() => {
