@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Map from "../../components/MapComponent/Map";
 
 export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
   const initialState = {
@@ -69,9 +70,9 @@ export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
               />
             </form>
           </div>
-          <button className="btnAddNewRout">ДОБАВИТЬ МАРШРУТ</button>
+          <button className="btnEdite">РЕДАКТИРОВАТЬ</button>
         </div>
-        <div className="map"></div>
+        <div className="map"><Map /></div>
       </div>
     </div>
   );

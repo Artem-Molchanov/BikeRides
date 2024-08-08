@@ -31,13 +31,12 @@ router.post("/", verifyAccessToken, async (req, res) => {
 
   try {
     if (name && info && routeLength && locality) {
-      console.log(11111, user.id);
       
       const track = await Route.create({
         name,
         info,
         coordinates,
-        routeLength: +routeLength,
+        routeLength,
         locality,
         userId: user.id,
       });
