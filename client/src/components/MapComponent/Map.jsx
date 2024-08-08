@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './MapComponent.css';
 
-const script = document.createElement('script');
 
 function Map({coord, setCoord, duration, setDuration,distance, setDistance, wayPointsOnMap, setWayPointsOnMap}) {
-
+  
   const [isMap, setIsMap] = useState(false);
   
 
-
+  
   useEffect(() => {
     if (!isMap) {
+    const script = document.createElement('script');
     script.setAttribute('type', 'text/javascript');
     script.src =
       'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
@@ -91,12 +91,9 @@ function Map({coord, setCoord, duration, setDuration,distance, setDistance, wayP
             });
           });
         });
-        // console.log('routePanel', control.routePanel);
-        
-        // console.log(myMap);
+      
       }
 
-      // myMap.addChild(mapListeners);
     };
     
 
