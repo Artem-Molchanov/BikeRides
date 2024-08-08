@@ -39,6 +39,7 @@ function Header({ user, setUser }) {
 								ЛК админа
 							</Link>
 						)}
+							
 						<Link to='/parties' className='cart'>
 							Ваши вечеринки
 						</Link>
