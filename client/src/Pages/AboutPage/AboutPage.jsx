@@ -31,7 +31,6 @@ export default function AboutRoute({
   }
 
   const submitHandler = async () => {
-    console.log(currentRoute);
     
     const response = await axiosInstance.delete(
       `${import.meta.env.VITE_API}/routes/${currentRoute.id}`

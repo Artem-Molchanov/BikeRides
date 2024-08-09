@@ -3,6 +3,15 @@ const { Review, User, Route, Score } = require('../../db/models');
 const { verifyAccessToken } = require('../middleWares/verifyToken');
 
 
+router.get('/', async (req, res) => {
+	try {
+		const allReviews = await Review.findAll();
+		res.json(allReviews);
+	} catch (error) {
+		res.status(500).json({ error: 'Server Error' });
+	}
+});
+
 router.get('/route/:routeId', async (req, res) => {
 	try {
 		const { routeId } = req.params;
@@ -18,9 +27,12 @@ router.get('/route/:routeId', async (req, res) => {
 
 
 router.post('/:id', verifyAccessToken, async (req, res) => {
+	console.log(111);
+	
+	
 	try {
 		const { id } = req.params;
-		const { routeId, description,point } = req.body;
+		const { routeId, description, point } = req.body;
 		const newScore = await Score.create({
 			routeId: id,
 			userId: res.locals.user.id,
@@ -33,7 +45,9 @@ router.post('/:id', verifyAccessToken, async (req, res) => {
 			userId: res.locals.user.id, 
 			description,
 		});
-		res.status(201).json(newReview);
+
+		const allReviews = await Review.findAll()
+		res.status(201).json(allReviews);
 	} catch (error) {
 		res.status(500).json({ error: 'Server Error' });
 	}
@@ -68,7 +82,8 @@ router.delete('/:id', verifyAccessToken, async (req, res) => {
 		}
 
 		await review.destroy();
-		res.json({ message: 'Review deleted' });
+		const allReviews = await Review.findAll();
+		res.json(allReviews);
 	} catch (error) {
 		res.status(500).json({ error: 'Server Error' });
 	}
