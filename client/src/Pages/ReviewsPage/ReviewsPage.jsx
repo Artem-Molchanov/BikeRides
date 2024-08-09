@@ -14,6 +14,11 @@ export default function Reviews({
     (el) => el.routeId === currentRoute.id
   );
 
+  let heightReviewPage = '100vh'
+  if(reviewsOfOneRoute.length > 2) {
+    heightReviewPage = '100%'
+  }
+
   const [inputs, setInputs] = useState({ description: "", point: "" });
 
   const inputsHandler = (e) => {
@@ -33,9 +38,10 @@ export default function Reviews({
       setAllReviews(response.data);
     }
   };
+  
 
   return (
-    <div className="reviewPage">
+    <div style={{height: heightReviewPage}}>
       <div className="boxAddReview">
         <input onChange={inputsHandler} name="point" value={inputs.point} />
         <textarea

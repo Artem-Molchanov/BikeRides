@@ -53,7 +53,7 @@ body {
 }
 
 .homePage {
-  /* height: 100vh; */
+  height: 100vh;
 }
 
 .avatar {
@@ -185,6 +185,8 @@ body {
 
   .cardTrack {
     padding-bottom: 60px;
+    padding-left: 90px;
+
   }
   
 
@@ -192,7 +194,7 @@ body {
     margin: 60px;
     padding-bottom: 60px;
     margin-left: 90px;
-    /* height: 100vh; */
+ 
   }
   
   .flexCard{
@@ -253,9 +255,6 @@ body {
     height: 120px;
   }
 
-  .reviewPage {
-    height: 100vh;
-  }
 
   .boxAddReview {
     display: flex;
