@@ -10,7 +10,13 @@ export default function AboutRoute({
   currentRoute,
   user,
   setTitle,
-  setChange
+  setChange,
+  duration,
+  setDuration,
+  distance,
+  setDistance,
+  wayPointsOnMap,
+  setWayPointsOnMap,
 }) {
 
   const navigate = useNavigate();
@@ -42,16 +48,16 @@ export default function AboutRoute({
     <div className="aboutPage">
       <div className="boxForCard">
         <div className="authorName">
-          Автор: {allUsers.find((el) => el.id === currentRoute.userId).name}
+          Автор: {allUsers?.find((el) => el.id === currentRoute?.userId).name}
         </div>
         <div className="dataInfo">{currentRoute.info}</div>
         <div className="flexCard">
           <div>
             <div>
-              <div className="city">📍 {currentRoute.locality}</div>
-              <div className="km">🗺 {currentRoute.routeLength}</div>
+              <div className="city">📍 {currentRoute?.locality}</div>
+              <div className="km">🗺 {currentRoute?.routeLength}</div>
             </div>
-            {currentRoute.userId === user.id ? (
+            {currentRoute?.userId === user.id ? (
               <div className="btnsAccess">
                 <button onClick={navEdits} className="btnEdite">РЕДАКТИРОВАТЬ</button>
                 <button onClick={submitHandler} className="btnDelete">УДАЛИТЬ</button>
@@ -63,7 +69,14 @@ export default function AboutRoute({
           </div>
           <div className="mapForCard">
             <MapForm 
-            currentRoute={currentRoute}/>
+            currentRoute={currentRoute}
+            duration={duration}
+						setDuration={setDuration}
+						distance={distance}
+						setDistance={setDistance}
+						wayPointsOnMap={wayPointsOnMap}
+						setWayPointsOnMap={setWayPointsOnMap}
+            />
           </div>
         </div>
       </div>

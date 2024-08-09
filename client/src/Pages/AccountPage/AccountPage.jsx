@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import Card from "../../components/Card/Card";
@@ -15,16 +15,18 @@ export default function AccountPage({
   setCoord,
   duration,
   setDuration,
-  distance,
-  setDistance,
+  distanceOnMap,
+  setDistanceOnMap,
   wayPointsOnMap,
   setWayPointsOnMap,
   setChange,
 }) {
+  const [isMap, setIsMap] = useState(false);
+  const[remuveMap, setRemuveMap] =useState(false)
   const initialState = {
-    name: "",
-    info: "",
-    locality: "",
+    name: '',
+    info: '',
+    locality: '',
   };
   const [inputs, setInputs] = useState(initialState);
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ export default function AccountPage({
     const payload = {
       ...inputs,
       coordinates: wayPointsOnMap,
-      routeLength: distance,
+      routeLength: distanceOnMap,
     };
 
     // console.log( "distance", payload)
@@ -47,61 +49,73 @@ export default function AccountPage({
       payload
     );
     if (response.status === 200) {
+
       setInputs(initialState);
       setAllRoutes(response.data);
+      // setDistanceOnMap(((prev)=>console.log("GGGGG", prev)))
+      setDistanceOnMap('')
+      setIsMap(false)
+      setRemuveMap(true)
     }
   };
+  useEffect(()=>{
+
+  },[])
 
   const routeUser = allRoutes.filter((el) => el.userId === user.id);
 
   return (
     <div>
-      <div className="dataRout">
+      <div className='dataRout'>
         <div>
-          <div className="nameInAccount">{user?.name}</div>
-          <div className="addNewRout">ДОБАВЛЕНИЕ НОВОГО МАРШРУТА</div>
-          <div className="boxFormAdd">
-            <form onSubmit={submitHandler} className="form">
+          <div className='nameInAccount'>{user?.name}</div>
+          <div className='addNewRout'>ДОБАВЛЕНИЕ НОВОГО МАРШРУТА</div>
+          <div className='boxFormAdd'>
+            <form onSubmit={submitHandler} className='form'>
               <input
-                className="input"
+                className='input'
                 onChange={inputsHandler}
-                name="name"
-                placeholder="Название маршрута"
+                name='name'
+                placeholder='Название маршрута'
                 value={inputs.name}
               />
-              <div className="description">Описание маршрута</div>
+              <div className='description'>Описание маршрута</div>
               <textarea
-                className="textDescription"
+                className='textDescription'
                 onChange={inputsHandler}
-                name="info"
+                name='info'
                 value={inputs.info}
               ></textarea>
               <input
-                className="input"
+                className='input'
                 onChange={inputsHandler}
-                name="locality"
-                placeholder="📍Населённый пункт"
+                name='locality'
+                placeholder='📍Населённый пункт'
                 value={inputs.locality}
               />
               <input
-                className="input"
-                onChange={distance}
-                name="routeLength"
-                placeholder="🗺 Длина маршрута"
-                value={distance}
+                className='input'
+                
+                name='routeLength'
+                placeholder='🗺 Длина маршрута'
+                value={distanceOnMap}
               />
             </form>
           </div>
-          <button onClick={submitHandler} className="btnAddNewRout">
+          <button onClick={submitHandler} className='btnAddNewRout'>
             ДОБАВИТЬ МАРШРУТ
           </button>
         </div>
-        <div className="map">
+        <div className='map'>
           <Map
+          remuveMap={remuveMap}
+          setRemuveMap={setRemuveMap}
+            distanceOnMap={distanceOnMap}
+            setDistanceOnMap={setDistanceOnMap}
             duration={duration}
             setDuration={setDuration}
-            distance={distance}
-            setDistance={setDistance}
+            isMap={isMap}
+            setIsMap={setIsMap}
             wayPointsOnMap={wayPointsOnMap}
             setWayPointsOnMap={setWayPointsOnMap}
             coord={coord}
@@ -111,8 +125,8 @@ export default function AccountPage({
       </div>
 
       <div>
-        <div className="addNewRout">МОИ МАРШРУТЫ</div>
-        <div className="cardTrack">
+        <div className='addNewRout'>МОИ МАРШРУТЫ</div>
+        <div className='cardTrack'>
           {routeUser.map((route, index) => (
             <Card
               key={index}

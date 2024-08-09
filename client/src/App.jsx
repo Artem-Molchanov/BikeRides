@@ -31,6 +31,7 @@ function App() {
   const [distance, setDistance] = useState();
   const [duration, setDuration] = useState();
   const [change, setChange] = useState(false);
+  const [distanceOnMap, setDistanceOnMap] = useState();
 
   const isRegistered = user && !!user.name;
 
@@ -68,6 +69,7 @@ function App() {
 
   useEffect(() => {
 		axiosInstance
+   
 			.get(`${import.meta.env.VITE_API}/routes/${currentRoute.id}`)
 			.then(data => setCurrentRoute(data.data))
 			.catch(err => console.log('Ошибка :', err));
@@ -95,8 +97,10 @@ function App() {
 						<AccountPage
 							duration={duration}
 							setDuration={setDuration}
-							distance={distance}
-							setDistance={setDistance}
+							// distance={distance}
+							// setDistance={setDistance}
+              distanceOnMap={distanceOnMap}
+              setDistanceOnMap={setDistanceOnMap}
 							wayPointsOnMap={wayPointsOnMap}
 							setWayPointsOnMap={setWayPointsOnMap}
 							coord={coord}
@@ -141,6 +145,12 @@ function App() {
 							user={user}
 							setTitle={setTitle}
 							setChange={setChange}
+              duration={duration}
+              setDuration={setDuration}
+              distance={distance}
+              setDistance={setDistance}
+              wayPointsOnMap={wayPointsOnMap}
+              setWayPointsOnMap={setWayPointsOnMap}
 						/>
 					}
 				/>

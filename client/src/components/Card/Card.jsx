@@ -7,15 +7,15 @@ export default function Card({ route, allUsers, setCurrentRoute, setTitle }) {
     async function showCardRoute() {
       navigate("/about");
       setCurrentRoute(route)
-      setTitle(`Маршрут “${route.name}”`);
+      setTitle(`Маршрут “${route?.name}”`);
     }
-console.log(allUsers);
+
 
   return (
     <div className="cardRoute">
-      <div className="routeName">{`Маршрут "${route.name}"`}</div>
+      <div className="routeName">{`Маршрут "${route?.name}"`}</div>
       <div className="authorName">
-        Автор: {allUsers.find((el) => el.id === route.userId).name}
+        Автор: {allUsers?.find((el) => el.id === route.userId).name}
       </div>
       <div className="dataInfo">{route.info}</div>
       <div className="cityandkm">

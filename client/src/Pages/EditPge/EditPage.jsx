@@ -2,6 +2,7 @@ import { useState } from "react";
 import Map from "../../components/MapComponent/Map";
 import axiosInstance from "../../axiosInstance";
 import { useNavigate } from "react-router-dom";
+import MapForm from "../../components/MapComponent/MapForm";
 
 export default function EditRoute({
 	allRoutes,
@@ -95,7 +96,8 @@ export default function EditRoute({
 					</button>
 				</div>
 				<div className='map'>
-					<Map
+					<MapForm
+          currentRoute={currentRoute}
 						duration={duration}
 						setDuration={setDuration}
 						distance={distance}
