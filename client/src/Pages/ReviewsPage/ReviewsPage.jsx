@@ -27,11 +27,7 @@ export default function Reviews({ currentRoute }) {
 	return (
 		<div>
 			<div className='boxAddReview'>
-				<input
-					onChange={inputsHandler}
-					name='point'
-					value={inputs.point}
-				/>
+				<input onChange={inputsHandler} name='point' value={inputs.point} />
 				<textarea
 					onChange={inputsHandler}
 					name='description'
