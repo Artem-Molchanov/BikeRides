@@ -11,7 +11,7 @@ export default function Card({ route, allUsers, setCurrentRoute, setTitle }) {
     async function showCardRoute() {
       navigate("/about");
       setCurrentRoute(route)
-      setTitle(`Маршрут “${route.name}”`);
+      setTitle(`Маршрут “${route?.name}”`);
     }
     //получение среднего балла за маршрут
     useEffect(() => {
