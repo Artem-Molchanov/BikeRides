@@ -2,12 +2,15 @@ const router = require('express').Router();
 const { Score, User, Route } = require('../../db/models');
 const { verifyAccessToken } = require('../middleWares/verifyToken');
 
-router.get('/route/:routeId', async (req, res) => {
+router.get('/route/:id', async (req, res) => {
+	
 	try {
-		const { routeId } = req.params;
+	
+		const { id } = req.params;
+
 		const scores = await Score.findAll({
-			where: { routeId },
-			include: [User],
+			where: { routeId: id },
+			
 		});
 		res.json(scores);
 	} catch (error) {

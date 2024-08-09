@@ -13,7 +13,7 @@ const tokenRouter = require('./routers/token.router');
 
 const routeRouter = require('./routers/routes.api.router')
 const reviewRouter = require('./routers/reviews.api.router');
-const scoreRouter = require('./routers/reviews.api.router');
+const scoreRouter = require('./routers/scores.api.router');
 const trackRouter = require('./routers/track.router');
 
 const app = express();
