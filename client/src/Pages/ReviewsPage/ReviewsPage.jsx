@@ -1,49 +1,66 @@
-import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../axiosInstance';
-import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstance";
+import { useEffect, useState } from "react";
+import CardReview from "../../components/CardReview/CardReview";
 
-export default function Reviews({ currentRoute }) {
-	const [inputs, setInputs] = useState({ description: '', point: ''});
+export default function Reviews({
+  currentRoute,
+  setAllReviews,
+  allReviews,
+  allUsers,
+  user,
+}) {
+  const reviewsOfOneRoute = allReviews.filter(
+    (el) => el.routeId === currentRoute.id
+  );
 
-	const inputsHandler = e => {
+  const [inputs, setInputs] = useState({ description: "", point: "" });
 
+  const inputsHandler = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-		setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }));
-	};
+  const addReview = async () => {
+    const response = await axiosInstance.post(
+      `${import.meta.env.VITE_API}/reviews/${currentRoute.id}`,
+      inputs
+    );
 
-	const addReview = async () => {
-		const response = await axiosInstance.post(
-			`${import.meta.env.VITE_API}/reviews/${currentRoute.id}`,
-			inputs
-		);
+    if (response.status === 201) {
+      setInputs((prev) => {
+        return { description: "", point: "" };
+      });
+      setAllReviews(response.data);
+    }
+  };
 
-		if (response.status === 201) {
-			setInputs(prev => {
-				return { description: '', point: '' };
-			});
-		}
-	};
-
-	return (
-		<div>
-			<div className='boxAddReview'>
-				<input
-					onChange={inputsHandler}
-					name='point'
-					value={inputs.point}
-				/>
-				<textarea
-					onChange={inputsHandler}
-					name='description'
-					value={inputs.description}
-					className='textReview'></textarea>
-				<button onClick={addReview} className='btnReview'>
-					ОСТАВИТЬ ОТЗЫВ
-				</button>
-			</div>
-			<div>
-				<div className='homePage'>review</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="reviewPage">
+      <div className="boxAddReview">
+        <input onChange={inputsHandler} name="point" value={inputs.point} />
+        <textarea
+          onChange={inputsHandler}
+          name="description"
+          value={inputs.description}
+          className="textReview"
+        ></textarea>
+        <button onClick={addReview} className="btnReview">
+          ОСТАВИТЬ ОТЗЫВ
+        </button>
+      </div>
+      <div>
+        <div className="cardTrack">
+          {reviewsOfOneRoute.map((oneReview, index) => (
+            <CardReview
+              key={index}
+              oneReview={oneReview}
+              allUsers={allUsers}
+              user={user}
+              setAllReviews={setAllReviews}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
