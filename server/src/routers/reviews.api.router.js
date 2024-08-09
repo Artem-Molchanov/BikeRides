@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Review, User, Route } = require('../../db/models');
+const { Review, User, Route, Score } = require('../../db/models');
 const { verifyAccessToken } = require('../middleWares/verifyToken');
 
 
@@ -17,13 +17,21 @@ router.get('/route/:routeId', async (req, res) => {
 });
 
 
-router.post('/', verifyAccessToken, async (req, res) => {
+router.post('/:id', verifyAccessToken, async (req, res) => {
 	try {
-		const { routeId, text } = req.body;
+		const { id } = req.params;
+		const { routeId, description,point } = req.body;
+		const newScore = await Score.create({
+			routeId: id,
+			userId: res.locals.user.id,
+			point,
+		});
+		
+		
 		const newReview = await Review.create({
-			routeId,
+			routeId: id,
 			userId: res.locals.user.id, 
-			text,
+			description,
 		});
 		res.status(201).json(newReview);
 	} catch (error) {

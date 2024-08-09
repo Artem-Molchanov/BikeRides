@@ -26,11 +26,11 @@ function App() {
   const [allRoutes, setAllRoutes] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [currentRoute, setCurrentRoute] = useState({});
-  const [coord, setCoord] = useState([])
+  const [coord, setCoord] = useState([]);
   const [wayPointsOnMap, setWayPointsOnMap] = useState();
-  const [distance, setDistance] = useState()
-  const [duration, setDuration] = useState()
-
+  const [distance, setDistance] = useState();
+  const [duration, setDuration] = useState();
+  const [change, setChange] = useState(false);
 
   const isRegistered = user && !!user.name;
 
@@ -55,80 +55,102 @@ function App() {
       .get(`${import.meta.env.VITE_API}/track`)
       .then((data) => setAllRoutes(data.data))
       .catch((err) => console.log("Ошибка :", err));
-  }, []);
+    setChange(false);
+  }, [change]);
 
   useEffect(() => {
     axiosInstance
       .get(`${import.meta.env.VITE_API}/track/allUsers`)
       .then((data) => setAllUsers(data.data))
       .catch((err) => console.log("Ошибка :", err));
-  }, []);
+  }, [user]);
+
+
+  useEffect(() => {
+		axiosInstance
+			.get(`${import.meta.env.VITE_API}/routes/${currentRoute.id}`)
+			.then(data => setCurrentRoute(data.data))
+			.catch(err => console.log('Ошибка :', err));
+	},[change]);
 
   return (
-    <Router>
-      <Header user={user} setUser={setUser} title={title} setTitle={setTitle} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route
-          path="/routes"
-          element={
-            <RoutesPage
-              allRoutes={allRoutes}
-              allUsers={allUsers}
-              setCurrentRoute={setCurrentRoute}
-              setTitle={setTitle}
-            />
-          }
-        />
-        <Route
-          path="/account"
-          element={
-            <AccountPage
-            duration={duration}
-            setDuration={setDuration}
-            distance={distance}
-            setDistance={setDistance}
-            wayPointsOnMap={wayPointsOnMap}
-            setWayPointsOnMap={setWayPointsOnMap}
-            coord={coord}
-            setCoord={setCoord}
-              user={user}
-              allRoutes={allRoutes}
-              setAllRoutes={setAllRoutes}
-              allUsers={allUsers}
-              setCurrentRoute={setCurrentRoute}
-              setTitle={setTitle}
-            />
-          }
-        />
-        <Route path="/auth" element={<Auth setUser={setUser} />} />
-        <Route
-          path="/edit"
-          element={
-            <EditRoute
-              allRoutes={allRoutes}
-              allUsers={allUsers}
-              currentRoute={currentRoute}
-              user={user}
-            />
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <AboutRoute
-              allRoutes={allRoutes}
-              allUsers={allUsers}
-              currentRoute={currentRoute}
-              user={user}
-			  setTitle={setTitle}
-            />
-          }
-        />
-        <Route path="/reviews" element={<Reviews />} />
-      </Routes>
-    </Router>
-  );
+		<Router>
+			<Header user={user} setUser={setUser} title={title} setTitle={setTitle} />
+			<Routes>
+				<Route path='/' element={<HomePage />} />
+				<Route
+					path='/routes'
+					element={
+						<RoutesPage
+							allRoutes={allRoutes}
+							allUsers={allUsers}
+							setCurrentRoute={setCurrentRoute}
+							setTitle={setTitle}
+						/>
+					}
+				/>
+				<Route
+					path='/account'
+					element={
+						<AccountPage
+							duration={duration}
+							setDuration={setDuration}
+							distance={distance}
+							setDistance={setDistance}
+							wayPointsOnMap={wayPointsOnMap}
+							setWayPointsOnMap={setWayPointsOnMap}
+							coord={coord}
+							setCoord={setCoord}
+							user={user}
+							allRoutes={allRoutes}
+							setAllRoutes={setAllRoutes}
+							allUsers={allUsers}
+							setCurrentRoute={setCurrentRoute}
+							setTitle={setTitle}
+							setChange={setChange}
+						/>
+					}
+				/>
+				<Route path='/auth' element={<Auth setUser={setUser} />} />
+				<Route
+					path='/edit'
+					element={
+						<EditRoute
+							allRoutes={allRoutes}
+							allUsers={allUsers}
+							currentRoute={currentRoute}
+							user={user}
+							wayPointsOnMap={wayPointsOnMap}
+							distance={distance}
+							setChange={setChange}
+							duration={duration}
+							setDuration={setDuration}
+							setDistance={setDistance}
+							setWayPointsOnMap={setWayPointsOnMap}
+							setCurrentRoute={setCurrentRoute}
+						/>
+					}
+				/>
+				<Route
+					path='/about'
+					element={
+						<AboutRoute
+							allRoutes={allRoutes}
+							allUsers={allUsers}
+							currentRoute={currentRoute}
+							user={user}
+							setTitle={setTitle}
+							setChange={setChange}
+						/>
+					}
+				/>
+				<Route
+					path='/reviews'
+					element={<Reviews currentRoute={currentRoute} />}
+				/>
+			</Routes>
+		</Router>
+	);
 }
 
 export default App;

@@ -9,6 +9,7 @@ export default function Card({ route, allUsers, setCurrentRoute, setTitle }) {
       setCurrentRoute(route)
       setTitle(`Маршрут “${route.name}”`);
     }
+console.log(allUsers);
 
   return (
     <div className="cardRoute">

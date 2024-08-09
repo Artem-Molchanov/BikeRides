@@ -51,9 +51,11 @@ router.put('/:id', verifyAccessToken, async (req, res) => {
 
 
 router.delete('/:id', verifyAccessToken, async (req, res) => {
+	
 	try {
 		const { id } = req.params;
 		const route = await Route.findByPk(id);
+console.log(id);
 
 		if (route.userId !== res.locals.user.id) {
 			return res.status(403).json({ error: 'Forbidden' });
@@ -80,6 +82,22 @@ router.get('/:id/coordinates', async (req, res) => {
 		}
 
 		res.json(route.coordinates);
+	} catch (error) {
+		res.status(500).json({ error: 'Server Error' });
+	}
+});
+
+
+router.get('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const route = await Route.findByPk(id);
+		
+		if (!route) {
+			return res.status(404).json({ error: 'Маршрут не найден' });
+		}
+
+		res.json(route);
 	} catch (error) {
 		res.status(500).json({ error: 'Server Error' });
 	}

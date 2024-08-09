@@ -13,7 +13,13 @@ export default function AccountPage({
   setTitle,
   coord,
   setCoord,
-  duration, setDuration,distance, setDistance, wayPointsOnMap, setWayPointsOnMap
+  duration,
+  setDuration,
+  distance,
+  setDistance,
+  wayPointsOnMap,
+  setWayPointsOnMap,
+  setChange,
 }) {
   const initialState = {
     name: "",
@@ -30,10 +36,12 @@ export default function AccountPage({
   const submitHandler = async (e) => {
     e.preventDefault();
     const payload = {
-      ...inputs, coordinates: wayPointsOnMap, routeLength: distance
+      ...inputs,
+      coordinates: wayPointsOnMap,
+      routeLength: distance,
     };
-    
-    console.log( "distance", payload)
+
+    // console.log( "distance", payload)
     const response = await axiosInstance.post(
       `${import.meta.env.VITE_API}/track`,
       payload
@@ -43,7 +51,6 @@ export default function AccountPage({
       setAllRoutes(response.data);
     }
   };
- 
 
   const routeUser = allRoutes.filter((el) => el.userId === user.id);
 
@@ -90,17 +97,16 @@ export default function AccountPage({
           </button>
         </div>
         <div className="map">
-          <Map  
-          duration={duration}
-          setDuration={setDuration}
-          distance={distance}
-          setDistance={setDistance}
-          
-          wayPointsOnMap={wayPointsOnMap}
-          setWayPointsOnMap={setWayPointsOnMap}
-          coord={coord}
-          setCoord={setCoord}
-            />
+          <Map
+            duration={duration}
+            setDuration={setDuration}
+            distance={distance}
+            setDistance={setDistance}
+            wayPointsOnMap={wayPointsOnMap}
+            setWayPointsOnMap={setWayPointsOnMap}
+            coord={coord}
+            setCoord={setCoord}
+          />
         </div>
       </div>
 
@@ -108,7 +114,13 @@ export default function AccountPage({
         <div className="addNewRout">МОИ МАРШРУТЫ</div>
         <div className="cardTrack">
           {routeUser.map((route, index) => (
-            <Card key={index} route={route} allUsers={allUsers} setCurrentRoute={setCurrentRoute} setTitle={setTitle} />
+            <Card
+              key={index}
+              route={route}
+              allUsers={allUsers}
+              setCurrentRoute={setCurrentRoute}
+              setTitle={setTitle}
+            />
           ))}
         </div>
       </div>
