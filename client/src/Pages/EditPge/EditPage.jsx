@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Map from "../../components/MapComponent/Map";
+import MapForm from "../../components/MapComponent/MapForm";
 
 export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
   const initialState = {
@@ -72,7 +73,7 @@ export default function EditRoute({ allRoutes, allUsers, currentRoute, user }) {
           </div>
           <button className="btnEdite">РЕДАКТИРОВАТЬ</button>
         </div>
-        <div className="map"><Map /></div>
+        <div className="map"><MapForm currentRoute={currentRoute} /></div>
       </div>
     </div>
   );

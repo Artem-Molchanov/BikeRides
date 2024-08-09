@@ -43,7 +43,7 @@ export default function AccountPage({
       setAllRoutes(response.data);
     }
   };
-  console.log(routeUser);
+ 
 
   const routeUser = allRoutes.filter((el) => el.userId === user.id);
 
@@ -51,7 +51,7 @@ export default function AccountPage({
     <div>
       <div className="dataRout">
         <div>
-          <div className="nameInAccount">{user.name}</div>
+          <div className="nameInAccount">{user?.name}</div>
           <div className="addNewRout">ДОБАВЛЕНИЕ НОВОГО МАРШРУТА</div>
           <div className="boxFormAdd">
             <form onSubmit={submitHandler} className="form">
