@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance, { setAccessToken } from "../../axiosInstance";
 import styles from "./Auth.module.css";
 
-function Auth({ setUser }) {
+function Auth({ setUser, isRegister, setIsRegister }) {
   const [inputs, setInputs] = useState({});
-  const [isRegister, setIsRegister] = useState(true);
+  
   const navigate = useNavigate();
 
   const toggleForm = () => {

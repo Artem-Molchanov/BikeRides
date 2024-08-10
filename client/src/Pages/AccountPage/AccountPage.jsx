@@ -43,7 +43,6 @@ export default function AccountPage({
       routeLength: distanceOnMap,
     };
 
-    // console.log( "distance", payload)
     const response = await axiosInstance.post(
       `${import.meta.env.VITE_API}/track`,
       payload

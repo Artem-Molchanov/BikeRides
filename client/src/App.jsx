@@ -33,6 +33,7 @@ function App() {
   const [change, setChange] = useState(false);
   const [allReviews, setAllReviews] = useState([]);
   const [distanceOnMap, setDistanceOnMap] = useState();
+  const [isRegister, setIsRegister] = useState(true);
 
   const isRegistered = user && !!user.name;
 
@@ -83,7 +84,14 @@ function App() {
 
   return (
     <Router>
-      <Header user={user} setUser={setUser} title={title} setTitle={setTitle} />
+      <Header
+        user={user}
+        setUser={setUser}
+        title={title}
+        setTitle={setTitle}
+        isRegister={isRegister}
+        setIsRegister={setIsRegister}
+      />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -121,7 +129,16 @@ function App() {
             />
           }
         />
-        <Route path="/auth" element={<Auth setUser={setUser} />} />
+        <Route
+          path="/auth"
+          element={
+            <Auth
+              setUser={setUser}
+              isRegister={isRegister}
+              setIsRegister={setIsRegister}
+            />
+          }
+        />
         <Route
           path="/edit"
           element={
@@ -167,8 +184,8 @@ function App() {
               currentRoute={currentRoute}
               allReviews={allReviews}
               setAllReviews={setAllReviews}
-			  allUsers={allUsers}
-			  user={user}
+              allUsers={allUsers}
+              user={user}
             />
           }
         />

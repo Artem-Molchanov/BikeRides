@@ -3,6 +3,7 @@ import Map from "../../components/MapComponent/Map";
 import { useNavigate } from "react-router-dom";
 import MapForm from "../../components/MapComponent/MapForm";
 import axiosInstance from "../../axiosInstance";
+import { useEffect } from "react";
 
 export default function AboutRoute({
   allRoutes,
@@ -20,6 +21,36 @@ export default function AboutRoute({
 }) {
 
   const navigate = useNavigate();
+  const [averageScore, setAverageScore] = useState(null);
+  //получение среднего балла за маршрут
+  useEffect(() => {
+    async function fetchScores() {
+    //   console.log(route.id);
+
+      try {
+        const response = await axiosInstance.get(
+          `${import.meta.env.VITE_API}/scores/route/${currentRoute.id}`
+        );
+        const scores = response.data;
+        // console.log(response.data);
+
+        if (scores.length > 0) {
+          const totalScore = scores.reduce(
+            (acc, score) => acc + score.point,
+            0
+          );
+          const average = totalScore / scores.length;
+          setAverageScore(average.toFixed(1));
+        } else {
+          setAverageScore("Нет оценок");
+        }
+      } catch (error) {
+        console.error("Ошибка при получении оценок:", error);
+      }
+    }
+
+    fetchScores();
+  }, []);
 
   function navEdits() {
     navigate('/edit')
@@ -46,9 +77,13 @@ export default function AboutRoute({
   return (
     <div className="aboutPage">
       <div className="boxForCard">
+        <div className="boxWithGrade">
         <div className="authorName">
           Автор: {allUsers?.find((el) => el.id === currentRoute?.userId).name}
         </div>
+        <div className="grade">{averageScore}</div>
+        </div>
+        <div className="authorName"> Средняя оценка маршрута: {averageScore}</div>
         <div className="dataInfo">{currentRoute.info}</div>
         <div className="flexCard">
           <div>
