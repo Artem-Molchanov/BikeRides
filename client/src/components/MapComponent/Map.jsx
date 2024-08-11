@@ -28,7 +28,7 @@ function Map({
       const script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
       script.src =
-        'https://api-maps.yandex.ru/2.1/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
+        'https://api-maps.yandex.ru/2.1.78/?apikey=24c18903-4f64-4649-87e4-d2621aa227b9&lang=ru_RU';
       script.async = true;
 
       document.body.appendChild(script);
@@ -54,7 +54,7 @@ function Map({
           setIsMap(true);
           setRemuveMap(true);
 
-          var wayPoints = route.getWayPoints();
+          // var wayPoints = route.getWayPoints();
 
           var multiRoutePromise = control.routePanel.getRouteAsync();
           multiRoutePromise.then(

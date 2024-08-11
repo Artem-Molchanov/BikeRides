@@ -64,7 +64,7 @@ export default function Card({
       <div className="cityandkm">
         <div>
           <div className="city">📍 {route.locality}</div>
-          <div className="km">🗺 {route.routeLength} км</div>
+          <div className="km">🗺 {route.routeLength}</div>
         </div>
         <div>
           <button onClick={showCardRoute} className="btnCardRout">
