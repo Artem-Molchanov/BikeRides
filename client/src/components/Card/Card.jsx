@@ -8,6 +8,7 @@ export default function Card({
   allUsers,
   setCurrentRoute,
   setTitle,
+  user
 }) {
   const navigate = useNavigate();
   const [averageScore, setAverageScore] = useState(null);
@@ -67,9 +68,12 @@ export default function Card({
           <div className="km">🗺 {route.routeLength}</div>
         </div>
         <div>
-          <button onClick={showCardRoute} className="btnCardRout">
+          {user && (
+            <button onClick={showCardRoute} className="btnCardRout">
             ПОДРОБНОСТИ МАРШРУТА И КАРТА
           </button>
+          )}
+          
         </div>
       </div>
     </div>

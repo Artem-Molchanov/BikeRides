@@ -7,8 +7,9 @@ export default function Routes({
   setTitle,
   averageScore,
   setAverageScore,
+  user,
 }) {
-
+  
   let heightRoutePage = '100vh'
   if(allRoutes.length > 2) {
     heightRoutePage = '100%'
@@ -26,6 +27,7 @@ export default function Routes({
             setTitle={setTitle}
             averageScore={averageScore}
             setAverageScore={setAverageScore}
+            user={user}
           />
         ))}
       </div>
